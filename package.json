@@ -19,6 +19,9 @@
     "react-dom": "16.13.1"
   },
   "devDependencies": {
+    "eslint": "^7.6.0",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-plugin-react": "^7.20.5",
     "prettier": "2.0.5"
   }
 }
