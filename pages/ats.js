@@ -21,7 +21,7 @@ export default function ATS() {
       <Layout style={{ minHeight: "100vh" }}>
         <Header style={{ position: "fixed", zIndex: 1, width: "100%" }}>
           <div className={styles.logo} />
-          <Menu theme="dark" mode="horizontal" defaultSelectedKeys={["2"]}>
+          <Menu theme="dark" mode="horizontal" defaultSelectedKeys={["1"]}>
             <Menu.Item key="1">Applicants</Menu.Item>
             <Menu.Item key="2">Job Listings</Menu.Item>
             <Menu.Item key="3">Settings</Menu.Item>
