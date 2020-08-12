@@ -1,4 +1,8 @@
 import Head from "next/head";
+import fetch from "isomorphic-unfetch";
+import useSWR from "swr";
+import Link from "next/link";
+// import cookie from "js-cookie";
 import { Layout, Menu } from "antd";
 import {
   UserOutlined,
@@ -11,6 +15,19 @@ const { Header, Content, Footer, Sider } = Layout;
 import styles from "../styles/ATS.module.css";
 
 export default function ATS() {
+  const { data, revalidate } = useSWR("/api/me", async function (args) {
+    const res = await fetch(args);
+    return res.json();
+  });
+  if (!data) return <h1>Loading...</h1>;
+
+  if (!data.username) {
+    return (
+      <Link href="/login">
+        <a>Login</a>
+      </Link>
+    );
+  }
   return (
     <div>
       <Head>

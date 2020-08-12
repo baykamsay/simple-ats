@@ -2,6 +2,7 @@ import { MongoClient } from "mongodb";
 import nextConnect from "next-connect";
 
 const client = new MongoClient(
+  process.env.DB_URL, // put your db url in .env.local
   {
     useNewUrlParser: true,
     useUnifiedTopology: true,
