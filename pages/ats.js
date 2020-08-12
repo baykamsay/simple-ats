@@ -1,33 +1,51 @@
 import Head from "next/head";
 import fetch from "isomorphic-unfetch";
 import useSWR from "swr";
-import Link from "next/link";
+import Router from "next/router";
+// import Link from "next/link";
 // import cookie from "js-cookie";
-import { Layout, Menu } from "antd";
+import { Layout, Menu, Spin, Row, Col, Button } from "antd";
 import {
   UserOutlined,
   LaptopOutlined,
   NotificationOutlined,
 } from "@ant-design/icons";
+import styles from "../styles/ATS.module.css";
+import homeStyle from "../styles/Home.module.css";
+import { useEffect } from "react";
 
 const { SubMenu } = Menu;
 const { Header, Content, Footer, Sider } = Layout;
-import styles from "../styles/ATS.module.css";
 
 export default function ATS() {
+  // eslint-disable-next-line no-unused-vars
   const { data, revalidate } = useSWR("/api/me", async function (args) {
     const res = await fetch(args);
     return res.json();
   });
-  if (!data) return <h1>Loading...</h1>;
+
+  // useEffect(() => {
+  //   if (data && !data.username) {
+  //     Router.replace("/login");
+  //   }
+  // }, [data]);
+
+  if (!data)
+    return (
+      <div className={homeStyle.container}>
+        <Spin size="large" />
+      </div>
+    );
 
   if (!data.username) {
+    Router.replace("/login");
     return (
-      <Link href="/login">
-        <a>Login</a>
-      </Link>
+      <div className={homeStyle.container}>
+        <Spin size="large" />
+      </div>
     );
   }
+
   return (
     <div>
       <Head>
@@ -37,13 +55,20 @@ export default function ATS() {
 
       <Layout style={{ minHeight: "100vh" }}>
         <Header style={{ position: "fixed", zIndex: 1, width: "100%" }}>
-          <div className={styles.logo} />
-          <Menu theme="dark" mode="horizontal" defaultSelectedKeys={["1"]}>
-            <Menu.Item key="1">Applicants</Menu.Item>
-            <Menu.Item key="2">Job Listings</Menu.Item>
-            <Menu.Item key="3">Settings</Menu.Item>
-            <Menu.Item key="4">About</Menu.Item>
-          </Menu>
+          <Row>
+            <Col flex="auto">
+              <div className={styles.logo} />
+              <Menu theme="dark" mode="horizontal" defaultSelectedKeys={["1"]}>
+                <Menu.Item key="1">Applicants</Menu.Item>
+                <Menu.Item key="2">Job Listings</Menu.Item>
+                <Menu.Item key="3">Settings</Menu.Item>
+                <Menu.Item key="4">About</Menu.Item>
+              </Menu>
+            </Col>
+            <Col flex="80px">
+              <Button>Sign Out</Button>
+            </Col>
+          </Row>
         </Header>
         <Content
           style={{

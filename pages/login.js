@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Router from "next/router";
 import cookie from "js-cookie";
 
@@ -29,11 +29,16 @@ const Login = () => {
         }
         if (data && data.token) {
           //set cookie
-          cookie.set("token", data.token, { expires: 2 });
-          Router.push("/");
+          cookie.set("token", data.token, { expires: 2, secure: true });
+          Router.push("/ats");
         }
       });
   }
+
+  useEffect(() => {
+    Router.prefetch("/ats");
+  }, []);
+
   return (
     <form onSubmit={handleSubmit}>
       <p>Login</p>
