@@ -1,14 +1,22 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import Router from "next/router";
 import cookie from "js-cookie";
+import Head from "next/head";
+import { Layout, Form, Input, Button, message } from "antd";
+
+const layout = {
+  labelCol: { span: 8 },
+  wrapperCol: { span: 16 },
+};
+const tailLayout = {
+  wrapperCol: { offset: 8, span: 16 },
+};
+const { Content, Footer } = Layout;
 
 const Login = () => {
-  const [loginError, setLoginError] = useState("");
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-
   function handleSubmit(e) {
-    e.preventDefault();
+    const username = e.username;
+    const password = e.password;
     //call api
     fetch("/api/auth", {
       method: "POST",
@@ -25,7 +33,7 @@ const Login = () => {
       })
       .then(async (data) => {
         if (data && data.error) {
-          setLoginError(data.message);
+          message.error(data.message);
         }
         if (data && data.token) {
           //set cookie
@@ -40,23 +48,61 @@ const Login = () => {
   }, []);
 
   return (
-    <form onSubmit={handleSubmit}>
-      <p>Login</p>
-      <input
-        name="username"
-        type="username"
-        value={username}
-        onChange={(e) => setUsername(e.target.value)}
-      />
-      <input
-        name="password"
-        type="password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-      />
-      <input type="submit" value="Submit" />
-      {loginError && <p style={{ color: "red" }}>{loginError}</p>}
-    </form>
+    <div>
+      <Head>
+        <title>Login - Simple ATS</title>
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
+
+      <Layout style={{ minHeight: "100vh" }}>
+        <Content
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <Form
+            {...layout}
+            name="basic"
+            onFinish={handleSubmit}
+            style={{
+              backgroundColor: "#fff",
+              padding: 24,
+              borderRadius: 4,
+              boxShadow: "2px 2px 6px -3px rgba(0,0,0,0.15)",
+            }}
+          >
+            <Form.Item
+              label="Username"
+              name="username"
+              rules={[
+                { required: true, message: "Please input your username!" },
+              ]}
+            >
+              <Input />
+            </Form.Item>
+
+            <Form.Item
+              label="Password"
+              name="password"
+              rules={[
+                { required: true, message: "Please input your password!" },
+              ]}
+            >
+              <Input.Password />
+            </Form.Item>
+
+            <Form.Item {...tailLayout}>
+              <Button type="primary" htmlType="submit">
+                Submit
+              </Button>
+            </Form.Item>
+          </Form>
+        </Content>
+        <Footer style={{ textAlign: "center" }}>Baykam Say ©2020</Footer>
+      </Layout>
+    </div>
   );
 };
 
