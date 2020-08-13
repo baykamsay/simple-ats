@@ -23,7 +23,7 @@ const Login = () => {
       .then((r) => {
         return r.json();
       })
-      .then((data) => {
+      .then(async (data) => {
         if (data && data.error) {
           setLoginError(data.message);
         }

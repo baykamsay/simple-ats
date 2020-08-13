@@ -3,7 +3,7 @@ import fetch from "isomorphic-unfetch";
 import useSWR from "swr";
 import Router from "next/router";
 // import Link from "next/link";
-// import cookie from "js-cookie";
+import cookie from "js-cookie";
 import { Layout, Menu, Spin, Row, Col, Button } from "antd";
 import {
   UserOutlined,
@@ -18,33 +18,23 @@ const { SubMenu } = Menu;
 const { Header, Content, Footer, Sider } = Layout;
 
 export default function ATS() {
-  // eslint-disable-next-line no-unused-vars
   const { data, revalidate } = useSWR("/api/me", async function (args) {
     const res = await fetch(args);
     return res.json();
   });
 
-  // useEffect(() => {
-  //   if (data && !data.username) {
-  //     Router.replace("/login");
-  //   }
-  // }, [data]);
+  useEffect(() => {
+    if (data && !data.username && !cookie.get("token")) {
+      Router.replace("/login");
+    }
+  }, [data]);
 
-  if (!data)
+  if (!data || !data.username)
     return (
       <div className={homeStyle.container}>
         <Spin size="large" />
       </div>
     );
-
-  if (!data.username) {
-    Router.replace("/login");
-    return (
-      <div className={homeStyle.container}>
-        <Spin size="large" />
-      </div>
-    );
-  }
 
   return (
     <div>
@@ -66,7 +56,14 @@ export default function ATS() {
               </Menu>
             </Col>
             <Col flex="80px">
-              <Button>Sign Out</Button>
+              <Button
+                onClick={() => {
+                  cookie.remove("token");
+                  revalidate();
+                }}
+              >
+                Sign Out
+              </Button>
             </Col>
           </Row>
         </Header>
