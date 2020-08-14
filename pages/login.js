@@ -37,7 +37,11 @@ const Login = () => {
         }
         if (data && data.token) {
           //set cookie
-          cookie.set("token", data.token, { expires: 2, secure: true });
+          cookie.set("token", data.token, {
+            expires: 2,
+            secure: true,
+            sameSite: "strict",
+          });
           Router.push("/ats");
         }
       });
