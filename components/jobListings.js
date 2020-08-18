@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Layout,
   List,
@@ -11,16 +11,24 @@ import {
 } from "antd";
 import styles from "../styles/ATS.module.css";
 import { PlusOutlined } from "@ant-design/icons";
+import AddJobModal from "./addJobModal";
 
 const { Content } = Layout;
 const { Title } = Typography;
 
 export default function JobListings(props) {
+  const [modalVisible, setModalVisible] = useState(false);
   return (
     <Layout
       className={styles.siteLayoutBackground}
       style={{ padding: "24px 0" }}
     >
+      <AddJobModal
+        visible={modalVisible}
+        close={() => {
+          setModalVisible(false);
+        }}
+      />
       <Content
         style={{
           padding: "0 24px",
@@ -34,7 +42,14 @@ export default function JobListings(props) {
             </Title>
           </Col>
           <Col>
-            <Button type="primary" icon={<PlusOutlined />} size="large">
+            <Button
+              type="primary"
+              icon={<PlusOutlined />}
+              size="large"
+              onClick={() => {
+                setModalVisible(true);
+              }}
+            >
               Add Listing
             </Button>
           </Col>
