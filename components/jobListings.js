@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import fetch from "isomorphic-unfetch";
+import useSWR, { mutate } from "swr";
 import {
   Layout,
   List,
@@ -8,15 +10,28 @@ import {
   Button,
   Row,
   Col,
+  Spin,
 } from "antd";
 import styles from "../styles/ATS.module.css";
+import homeStyle from "../styles/Home.module.css";
 import { PlusOutlined } from "@ant-design/icons";
 import AddJobModal from "./addJobModal";
 
 const { Content } = Layout;
 const { Title } = Typography;
 
-export default function JobListings(props) {
+export default function JobListings() {
+  const { data, error } = useSWR("/api/jobs", async function (args) {
+    const res = await fetch(args);
+    return res.json();
+  });
+  if (error) return <div>failed to load</div>;
+  if (!data)
+    return (
+      <div className={homeStyle.container}>
+        <Spin size="large" />
+      </div>
+    );
   const [modalVisible, setModalVisible] = useState(false);
   return (
     <Layout
@@ -26,6 +41,7 @@ export default function JobListings(props) {
       <AddJobModal
         visible={modalVisible}
         close={() => {
+          mutate("/api/jobs");
           setModalVisible(false);
         }}
       />
@@ -65,7 +81,7 @@ export default function JobListings(props) {
             xl: 6,
             xxl: 3,
           }}
-          dataSource={props.data}
+          dataSource={data}
           renderItem={(item) => (
             <List.Item>
               <Card

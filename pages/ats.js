@@ -3,7 +3,6 @@ import Head from "next/head";
 import fetch from "isomorphic-unfetch";
 import useSWR from "swr";
 import Router from "next/router";
-// import Link from "next/link";
 import cookie from "js-cookie";
 import { Layout, Menu, Spin, Row, Col, Button } from "antd";
 import styles from "../styles/ATS.module.css";
@@ -13,7 +12,7 @@ import JobListings from "../components/jobListings";
 
 const { Header, Content, Footer } = Layout;
 
-function ATS(props) {
+function ATS() {
   const { data, revalidate } = useSWR("/api/me", async function (args) {
     const res = await fetch(args);
     return res.json();
@@ -84,19 +83,13 @@ function ATS(props) {
             minHeight: "100%",
           }}
         >
-          {componentId === "1" && <Applicants data={props.data} />}
-          {componentId === "2" && <JobListings data={props.data} />}
+          {componentId === "1" && <Applicants />}
+          {componentId === "2" && <JobListings />}
         </Content>
         <Footer style={{ textAlign: "center" }}>Baykam Say ©2020</Footer>
       </Layout>
     </div>
   );
-}
-
-export async function getStaticProps(context) {
-  const res = await fetch("http://localhost:3000/api/jobs");
-  const json = await res.json();
-  return { props: { data: json } };
 }
 
 export default ATS;

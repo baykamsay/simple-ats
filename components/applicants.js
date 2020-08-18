@@ -1,11 +1,26 @@
 import React from "react";
-import { Layout, Menu, Typography, Divider } from "antd";
+import { Layout, Menu, Typography, Divider, Spin } from "antd";
+import fetch from "isomorphic-unfetch";
+import useSWR from "swr";
 import styles from "../styles/ATS.module.css";
+import homeStyle from "../styles/Home.module.css";
 
 const { Content, Sider } = Layout;
 const { Title } = Typography;
 
-export default function Applicants(props) {
+export default function Applicants() {
+  const { data, error } = useSWR("/api/jobs", async function (args) {
+    const res = await fetch(args);
+    return res.json();
+  });
+  if (error) return <div>failed to load</div>;
+  if (!data)
+    return (
+      <div className={homeStyle.container}>
+        <Spin size="large" />
+      </div>
+    );
+
   return (
     <Layout
       className={styles.siteLayoutBackground}
@@ -22,7 +37,7 @@ export default function Applicants(props) {
             defaultSelectedKeys={["0"]}
             style={{ height: "100%" }}
           >
-            {props.data.map((job, i) => (
+            {data.map((job, i) => (
               <Menu.Item key={i.toString()}>{job.title}</Menu.Item>
             ))}
           </Menu>
