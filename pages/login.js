@@ -55,7 +55,7 @@ const Login = () => {
     <div>
       <Head>
         <title>Login - Simple ATS</title>
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href="/favicon.png" />
       </Head>
 
       <Layout style={{ minHeight: "100vh" }}>

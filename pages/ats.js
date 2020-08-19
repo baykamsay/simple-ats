@@ -36,7 +36,7 @@ function ATS() {
     <div>
       <Head>
         <title>Simple ATS</title>
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href="/favicon.png" />
       </Head>
 
       <Layout style={{ minHeight: "100vh" }}>
