@@ -16,11 +16,15 @@ import styles from "../styles/ATS.module.css";
 import homeStyle from "../styles/Home.module.css";
 import { PlusOutlined } from "@ant-design/icons";
 import AddJobModal from "./addJobModal";
+import EditJobModal from "./editJobModal";
 
 const { Content } = Layout;
 const { Title } = Typography;
 
 export default function JobListings() {
+  const [newJobModalVisible, setNewJobModalVisible] = useState(false);
+  const [editJobModalVisible, setEditJobModalVisible] = useState(false);
+  const [selectedListing, setSelectedListing] = useState({});
   const { data, error } = useSWR("/api/jobs", async function (args) {
     const res = await fetch(args);
     return res.json();
@@ -32,17 +36,25 @@ export default function JobListings() {
         <Spin size="large" />
       </div>
     );
-  const [modalVisible, setModalVisible] = useState(false);
+
   return (
     <Layout
       className={styles.siteLayoutBackground}
       style={{ padding: "24px 0" }}
     >
       <AddJobModal
-        visible={modalVisible}
+        visible={newJobModalVisible}
         close={() => {
           mutate("/api/jobs");
-          setModalVisible(false);
+          setNewJobModalVisible(false);
+        }}
+      />
+      <EditJobModal
+        data={selectedListing}
+        visible={editJobModalVisible}
+        close={() => {
+          mutate("/api/jobs");
+          setEditJobModalVisible(false);
         }}
       />
       <Content
@@ -63,7 +75,7 @@ export default function JobListings() {
               icon={<PlusOutlined />}
               size="large"
               onClick={() => {
-                setModalVisible(true);
+                setNewJobModalVisible(true);
               }}
             >
               Add Listing
@@ -87,7 +99,8 @@ export default function JobListings() {
               <Card
                 hoverable
                 onClick={() => {
-                  console.log("hey"); // change here
+                  setSelectedListing(item);
+                  setEditJobModalVisible(true);
                 }}
                 title={item.title}
               >

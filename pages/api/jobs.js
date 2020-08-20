@@ -1,5 +1,6 @@
 import nextConnect from "next-connect";
 import middleware from "../../middleware/database";
+import { ObjectId } from "mongodb";
 
 const handler = nextConnect();
 
@@ -18,6 +19,22 @@ handler.post(async (req, res) => {
     description: data.description,
     applicants: [],
   });
+  res.json({ message: "ok" });
+});
+
+handler.put(async (req, res) => {
+  let data = req.body;
+  data = JSON.parse(data);
+
+  let doc = await req.db
+    .collection("jobs")
+    .updateOne(
+      { _id: ObjectId(data.id) },
+      { $set: { title: data.title, description: data.description } },
+      function (err, res) {
+        if (err) throw err;
+      }
+    );
   res.json({ message: "ok" });
 });
 

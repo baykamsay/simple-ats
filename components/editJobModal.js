@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Modal, Button, Form, Input } from "antd";
 
 const layout = {
@@ -6,34 +6,48 @@ const layout = {
   wrapperCol: { sm: { span: 16 }, xl: { span: 12 } },
 };
 
-export default function AddJobModal(props) {
+export default function EditJobModal(props) {
+  const [form] = Form.useForm();
+
+  useEffect(() => {
+    form.resetFields();
+  }, [props.data]);
+
   async function handleSubmit(e) {
-    // change this
-    // const res = await fetch("/api/jobs", {
-    //   method: "post",
-    //   body: JSON.stringify(e),
-    // });
+    e.id = props.data._id;
+    const res = await fetch("/api/jobs", {
+      method: "put",
+      body: JSON.stringify(e),
+    });
     props.close();
   }
+
   return (
     <Modal
       visible={props.visible}
-      title="Job Listing" // change this
+      title={`Edit Listing: ${props.data.title}`} // change this
       onOk={props.close}
       onCancel={props.close}
       footer={null}
       width="80vw"
       // bodyStyle={{ height: "80vh" }}
       centered
+      forceRender
     >
-      <Form {...layout} name="edit-job" onFinish={handleSubmit}>
-        <Form.Item name="title" label="Title" rules={[{ required: true }]}>
+      <Form form={form} {...layout} name="edit-job" onFinish={handleSubmit}>
+        <Form.Item
+          name="title"
+          label="Title"
+          rules={[{ required: true }]}
+          initialValue={props.data.title}
+        >
           <Input />
         </Form.Item>
         <Form.Item
           name="description"
           label="Description"
           rules={[{ required: true }]}
+          initialValue={props.data.description}
         >
           <Input.TextArea rows={8} />
         </Form.Item>
