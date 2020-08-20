@@ -7,11 +7,13 @@ const layout = {
 };
 
 export default function AddJobModal(props) {
+  const [form] = Form.useForm();
   async function handleSubmit(e) {
     const res = await fetch("/api/jobs", {
       method: "post",
       body: JSON.stringify(e),
     });
+    form.resetFields();
     props.close();
   }
   return (
@@ -24,8 +26,9 @@ export default function AddJobModal(props) {
       width="80vw"
       // bodyStyle={{ height: "80vh" }}
       centered
+      forceRender
     >
-      <Form {...layout} name="add-job" onFinish={handleSubmit}>
+      <Form form={form} {...layout} name="add-job" onFinish={handleSubmit}>
         <Form.Item name="title" label="Title" rules={[{ required: true }]}>
           <Input />
         </Form.Item>
