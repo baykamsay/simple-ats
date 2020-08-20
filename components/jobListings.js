@@ -104,7 +104,9 @@ export default function JobListings() {
                 }}
                 title={item.title}
               >
-                {item.description}
+                {item.description.length <= 88
+                  ? item.description
+                  : `${item.description.substr(0, 85)}...`}
               </Card>
             </List.Item>
           )}

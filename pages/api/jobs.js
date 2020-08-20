@@ -38,4 +38,15 @@ handler.put(async (req, res) => {
   res.json({ message: "ok" });
 });
 
+handler.delete(async (req, res) => {
+  let id = req.body;
+  id = JSON.parse(id);
+  let doc = await req.db
+    .collection("jobs")
+    .deleteOne({ _id: ObjectId(id) }, function (err, res) {
+      if (err) throw err;
+    });
+  res.json({ message: "ok" });
+});
+
 export default handler;

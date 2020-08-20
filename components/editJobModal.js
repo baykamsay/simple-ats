@@ -22,10 +22,18 @@ export default function EditJobModal(props) {
     props.close();
   }
 
+  async function deleteListing() {
+    const res = await fetch("/api/jobs", {
+      method: "delete",
+      body: JSON.stringify(props.data._id),
+    });
+    props.close();
+  }
+
   return (
     <Modal
       visible={props.visible}
-      title={`Edit Listing: ${props.data.title}`} // change this
+      title={`Edit Listing: ${props.data.title}`}
       onOk={props.close}
       onCancel={props.close}
       footer={null}
@@ -57,8 +65,20 @@ export default function EditJobModal(props) {
             xl: { ...layout.wrapperCol, offset: 6 },
           }}
         >
-          <Button type="primary" htmlType="submit">
-            Submit
+          <Button
+            type="primary"
+            htmlType="submit"
+            style={{ marginRight: "8px" }}
+          >
+            Save
+          </Button>
+          <Button
+            type="default"
+            htmlType="button"
+            onClick={deleteListing}
+            danger
+          >
+            Delete
           </Button>
         </Form.Item>
       </Form>

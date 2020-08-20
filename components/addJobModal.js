@@ -46,7 +46,7 @@ export default function AddJobModal(props) {
           }}
         >
           <Button type="primary" htmlType="submit">
-            Submit
+            Create
           </Button>
         </Form.Item>
       </Form>
