@@ -15,7 +15,7 @@ handler.get(async (req, res) => {
   const applicants = await Promise.all(
     applicantIds.map(
       async (applicantId) =>
-        await req.db.collection("applicants").findOne({ email: applicantId })
+        await req.db.collection("applicants").findOne({ _id: applicantId })
     )
   );
   res.json(applicants);

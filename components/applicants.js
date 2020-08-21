@@ -45,7 +45,6 @@ export default function Applicants(props) {
       <InsertApplicantModal
         visible={insertApplicantModalVisible}
         close={() => {
-          mutate("/api/applicants");
           setInsertApplicantModalVisible(false);
         }}
       />

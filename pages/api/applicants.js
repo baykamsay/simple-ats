@@ -10,7 +10,6 @@ handler.get(async (req, res) => {
   res.json(doc);
 });
 
-// change to objectId
 handler.post(async (req, res) => {
   let data = req.body;
   data = JSON.parse(data);
@@ -19,7 +18,7 @@ handler.post(async (req, res) => {
   let doc = await req.db.collection("applicants").insertOne(data);
   let doc2 = await req.db
     .collection("jobs")
-    .updateOne({ title: listing }, { $push: { applicants: data.email } });
+    .updateOne({ title: listing }, { $push: { applicants: doc.insertedId } });
   res.json({ message: "ok" });
 });
 
