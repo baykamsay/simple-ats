@@ -12,7 +12,7 @@ import JobListings from "../components/jobListings";
 
 const { Header, Content, Footer } = Layout;
 
-function ATS() {
+function ATS({ initialId }) {
   const { data, revalidate } = useSWR("/api/me", async function (args) {
     const res = await fetch(args);
     return res.json();
@@ -83,13 +83,23 @@ function ATS() {
             minHeight: "100%",
           }}
         >
-          {componentId === "1" && <Applicants />}
+          {componentId === "1" && <Applicants data={initialId} />}
           {componentId === "2" && <JobListings />}
         </Content>
         <Footer style={{ textAlign: "center" }}>Baykam Say ©2020</Footer>
       </Layout>
     </div>
   );
+}
+
+export async function getStaticProps() {
+  const res = await fetch("http://localhost:3000/api/jobs");
+  const jobs = await res.json();
+  return {
+    props: {
+      initialId: jobs[0]._id,
+    },
+  };
 }
 
 export default ATS;

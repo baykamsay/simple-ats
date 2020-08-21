@@ -42,7 +42,13 @@ export default function EditJobModal(props) {
       centered
       forceRender
     >
-      <Form form={form} {...layout} name="edit-job" onFinish={handleSubmit}>
+      <Form
+        form={form}
+        {...layout}
+        name="edit-job"
+        onFinish={handleSubmit}
+        hideRequiredMark
+      >
         <Form.Item
           name="title"
           label="Title"

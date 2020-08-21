@@ -28,7 +28,13 @@ export default function AddJobModal(props) {
       centered
       forceRender
     >
-      <Form form={form} {...layout} name="add-job" onFinish={handleSubmit}>
+      <Form
+        form={form}
+        {...layout}
+        name="add-job"
+        onFinish={handleSubmit}
+        hideRequiredMark
+      >
         <Form.Item name="title" label="Title" rules={[{ required: true }]}>
           <Input />
         </Form.Item>
