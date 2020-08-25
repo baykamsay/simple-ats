@@ -6,7 +6,6 @@ const handler = nextConnect();
 
 handler.use(middleware);
 
-// change to objectId
 handler.get(async (req, res) => {
   let doc = await req.db
     .collection("jobs")
