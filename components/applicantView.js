@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import fetch from "isomorphic-unfetch";
 import useSWR from "swr";
 import { List, Spin, Card, Tag, Row, Col } from "antd";
+import ViewApplicantModal from "./viewApplicantModal";
 
 export default function ApplicantView(props) {
   const { data, error } = useSWR(`/api/jobs/${props.data}`, async function (
@@ -10,6 +11,8 @@ export default function ApplicantView(props) {
     const res = await fetch(args);
     return res.json();
   });
+  const [modalVisible, setModalVisible] = useState(false);
+  const [applicantData, setApplicantData] = useState({});
   function setColor(stage) {
     let color;
     switch (stage) {
@@ -43,34 +46,50 @@ export default function ApplicantView(props) {
       </div>
     );
   return (
-    <List
-      split={false}
-      itemLayout="horizontal"
-      dataSource={data}
-      renderItem={(item) => (
-        <List.Item>
-          <Card
-            hoverable
-            style={{ width: "100%" }}
-            bodyStyle={{ padding: "1rem" }}
-          >
-            <Row>
-              <Col span={4} style={{ display: "flex", alignItems: "center" }}>
-                {item.name}
-              </Col>
-              <Col span={4} style={{ display: "flex", alignItems: "center" }}>
-                <Tag color={setColor(item.stage)}>{item.stage}</Tag>
-              </Col>
-              <Col span={4} style={{ display: "flex", alignItems: "center" }}>
-                {item.email}
-              </Col>
-              <Col span={12} style={{ display: "flex", alignItems: "center" }}>
-                {item.introduction}
-              </Col>
-            </Row>
-          </Card>
-        </List.Item>
-      )}
-    />
+    <div>
+      <ViewApplicantModal
+        visible={modalVisible}
+        data={applicantData}
+        close={() => {
+          setModalVisible(false);
+        }}
+      />
+      <List
+        split={false}
+        itemLayout="horizontal"
+        dataSource={data}
+        renderItem={(item) => (
+          <List.Item>
+            <Card
+              hoverable
+              style={{ width: "100%" }}
+              bodyStyle={{ padding: "1rem" }}
+              onClick={() => {
+                setApplicantData(item);
+                setModalVisible(true);
+              }}
+            >
+              <Row>
+                <Col span={4} style={{ display: "flex", alignItems: "center" }}>
+                  {item.name}
+                </Col>
+                <Col span={4} style={{ display: "flex", alignItems: "center" }}>
+                  <Tag color={setColor(item.stage)}>{item.stage}</Tag>
+                </Col>
+                <Col span={4} style={{ display: "flex", alignItems: "center" }}>
+                  {item.email}
+                </Col>
+                <Col
+                  span={12}
+                  style={{ display: "flex", alignItems: "center" }}
+                >
+                  {item.introduction}
+                </Col>
+              </Row>
+            </Card>
+          </List.Item>
+        )}
+      />
+    </div>
   );
 }
