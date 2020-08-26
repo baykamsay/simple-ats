@@ -15,6 +15,7 @@ handler.post(async (req, res) => {
   data = JSON.parse(data);
   const listing = data.listing;
   delete data.listing;
+  data.stage = "Applied";
   let doc = await req.db.collection("applicants").insertOne(data);
   let doc2 = await req.db
     .collection("jobs")
