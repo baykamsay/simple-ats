@@ -15,8 +15,7 @@ export default function ViewApplicantModal(props) {
       onOk={props.close}
       onCancel={props.close}
       footer={null}
-      // width="80vw"
-      // bodyStyle={{ height: "80vh" }}
+      width={600}
       centered
       forceRender
     >

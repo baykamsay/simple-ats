@@ -4,8 +4,8 @@ import useSWR from "swr";
 import homeStyle from "../styles/Home.module.css";
 
 const layout = {
-  labelCol: { sm: { span: 4 }, xl: { span: 6 } },
-  wrapperCol: { sm: { span: 16 }, xl: { span: 12 } },
+  labelCol: { span: 6 },
+  wrapperCol: { span: 18 },
 };
 
 const validateMessages = {
@@ -50,8 +50,7 @@ export default function InsertApplicantModal(props) {
       onOk={props.close}
       onCancel={props.close}
       footer={null}
-      width="80vw"
-      // bodyStyle={{ height: "80vh" }}
+      width={600}
       centered
       forceRender
     >
@@ -110,8 +109,8 @@ export default function InsertApplicantModal(props) {
         </Form.Item>
         <Form.Item
           wrapperCol={{
-            sm: { ...layout.wrapperCol, offset: 4 },
-            xl: { ...layout.wrapperCol, offset: 6 },
+            ...layout.wrapperCol,
+            offset: 6,
           }}
         >
           <Button type="primary" htmlType="submit">
