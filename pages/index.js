@@ -100,11 +100,19 @@ export default function Home() {
               <img src="/our-team.png" alt="Our Team" width="100%"></img>
               <span>
                 Photo by{" "}
-                <a href="https://unsplash.com/@annaelizaearl?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText">
+                <a
+                  href="https://unsplash.com/@annaelizaearl?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   Anna Earl
                 </a>{" "}
                 on{" "}
-                <a href="https://unsplash.com/?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText">
+                <a
+                  href="https://unsplash.com/?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   Unsplash
                 </a>
               </span>
