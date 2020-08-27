@@ -1,0 +1,118 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap");
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  font-family: "Roboto", sans-serif;
+  color: #141414;
+}
+
+h1 {
+  font-weight: 700;
+  font-size: 4rem;
+  margin-bottom: 0;
+}
+
+h2 {
+  font-weight: 500;
+  font-size: 3rem;
+}
+
+h5 {
+  font-weight: 400;
+  font-size: 1.5rem;
+}
+
+p {
+  font-size: 1rem;
+  color: #141414;
+}
+
+.primary {
+  color: #ffffff;
+}
+
+.secondary {
+  color: #141414;
+}
+
+.primaryB {
+  background-color: #ffffff;
+}
+
+.secondaryB {
+  background-color: #141414;
+}
+
+.primaryBorder {
+  border-color: #ffffff;
+}
+
+.secondaryBorder {
+  border-color: #141414;
+}
+
+.marginBottom {
+  margin-bottom: 0;
+}
+
+.mission {
+  font-weight: 400;
+  font-size: 2rem;
+  margin-bottom: 0;
+}
+
+a.button {
+  display: inline-block;
+  padding: 0.35em 1.2em;
+  border: 0.1em solid #ffffff;
+  margin: 1rem 0.3em 0.3em 0;
+  border-radius: 0.12em;
+  box-sizing: border-box;
+  text-decoration: none;
+  font-family: "Roboto", sans-serif;
+  font-weight: 300;
+  color: #ffffff;
+  text-align: center;
+  transition: all 0.2s;
+}
+a.button:hover {
+  color: #000000;
+  background-color: #ffffff;
+}
+@media all and (max-width: 30em) {
+  a.button {
+    display: block;
+    margin: 0.4em auto;
+  }
+}
+
+a.buttonS {
+  display: inline-block;
+  padding: 0.35em 1.2em;
+  border: 0.1em solid #141414;
+  margin: 1rem 0.3em 0.3em 0;
+  border-radius: 0.12em;
+  box-sizing: border-box;
+  text-decoration: none;
+  font-family: "Roboto", sans-serif;
+  font-weight: 300;
+  color: #141414;
+  text-align: center;
+  transition: all 0.2s;
+  scale: 2;
+}
+a.buttonS:hover {
+  color: #ffffff;
+  background-color: #141414;
+}
+@media all and (max-width: 30em) {
+  a.buttonS {
+    display: block;
+    margin: 0.4em auto;
+  }
+}
