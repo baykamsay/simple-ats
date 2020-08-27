@@ -10,7 +10,7 @@ export default function ViewApplicantModal(props) {
 
   async function handleSubmit(e) {
     e.id = props.data._id;
-    const res = await fetch("/api/applicants", {
+    await fetch("/api/applicants", {
       method: "put",
       body: JSON.stringify(e),
     });
@@ -18,7 +18,7 @@ export default function ViewApplicantModal(props) {
   }
 
   async function deleteApplicant() {
-    const res = await fetch("/api/applicants", {
+    await fetch("/api/applicants", {
       method: "delete",
       body: JSON.stringify(props.data._id),
     });

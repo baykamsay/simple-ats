@@ -10,7 +10,7 @@ import {
   Button,
 } from "antd";
 import fetch from "isomorphic-unfetch";
-import useSWR, { mutate } from "swr";
+import useSWR from "swr";
 import styles from "../styles/ATS.module.css";
 import homeStyle from "../styles/Home.module.css";
 import { PlusOutlined } from "@ant-design/icons";
@@ -20,7 +20,7 @@ import ApplicantView from "./applicantView";
 const { Content, Sider } = Layout;
 const { Title } = Typography;
 
-export default function Applicants(props) {
+function Applicants(props) {
   const [
     insertApplicantModalVisible,
     setInsertApplicantModalVisible,
@@ -96,3 +96,5 @@ export default function Applicants(props) {
     </Layout>
   );
 }
+
+export default Applicants;

@@ -15,7 +15,7 @@ export default function EditJobModal(props) {
 
   async function handleSubmit(e) {
     e.id = props.data._id;
-    const res = await fetch("/api/jobs", {
+    await fetch("/api/jobs", {
       method: "put",
       body: JSON.stringify(e),
     });
@@ -23,7 +23,7 @@ export default function EditJobModal(props) {
   }
 
   async function deleteListing() {
-    const res = await fetch("/api/jobs", {
+    await fetch("/api/jobs", {
       method: "delete",
       body: JSON.stringify(props.data._id),
     });

@@ -14,7 +14,7 @@ handler.get(async (req, res) => {
 handler.post(async (req, res) => {
   let data = req.body;
   data = JSON.parse(data);
-  let doc = await req.db.collection("jobs").insertOne({
+  await req.db.collection("jobs").insertOne({
     title: data.title,
     description: data.description,
     applicants: [],
@@ -26,12 +26,12 @@ handler.put(async (req, res) => {
   let data = req.body;
   data = JSON.parse(data);
 
-  let doc = await req.db
+  await req.db
     .collection("jobs")
     .updateOne(
       { _id: ObjectId(data.id) },
       { $set: { title: data.title, description: data.description } },
-      function (err, res) {
+      function (err) {
         if (err) throw err;
       }
     );
@@ -41,9 +41,9 @@ handler.put(async (req, res) => {
 handler.delete(async (req, res) => {
   let id = req.body;
   id = JSON.parse(id);
-  let doc = await req.db
+  await req.db
     .collection("jobs")
-    .deleteOne({ _id: ObjectId(id) }, function (err, res) {
+    .deleteOne({ _id: ObjectId(id) }, function (err) {
       if (err) throw err;
     });
   res.json({ message: "ok" });

@@ -9,7 +9,7 @@ const layout = {
 export default function AddJobModal(props) {
   const [form] = Form.useForm();
   async function handleSubmit(e) {
-    const res = await fetch("/api/jobs", {
+    await fetch("/api/jobs", {
       method: "post",
       body: JSON.stringify(e),
     });

@@ -22,7 +22,7 @@ export default function InsertApplicantModal(props) {
 
   async function handleSubmit(e) {
     const eString = JSON.stringify(e, (k, v) => (v === undefined ? null : v));
-    const res = await fetch("/api/applicants", {
+    await fetch("/api/applicants", {
       method: "post",
       body: eString,
     });
