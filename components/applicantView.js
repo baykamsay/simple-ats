@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import fetch from "isomorphic-unfetch";
-import useSWR from "swr";
-import { List, Spin, Card, Tag, Row, Col } from "antd";
+import useSWR, { mutate } from "swr";
+import { List, Spin, Card, Tag, Row, Col, Rate } from "antd";
 import ViewApplicantModal from "./viewApplicantModal";
 
 export default function ApplicantView(props) {
@@ -51,6 +51,7 @@ export default function ApplicantView(props) {
         visible={modalVisible}
         data={applicantData}
         close={() => {
+          mutate(`/api/jobs/${props.data}`);
           setModalVisible(false);
         }}
       />
@@ -77,7 +78,7 @@ export default function ApplicantView(props) {
                   <Tag color={setColor(item.stage)}>{item.stage}</Tag>
                 </Col>
                 <Col span={4} style={{ display: "flex", alignItems: "center" }}>
-                  {item.email}
+                  <Rate value={item.rating} disabled />
                 </Col>
                 <Col
                   span={12}

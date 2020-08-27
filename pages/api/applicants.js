@@ -1,5 +1,6 @@
 import nextConnect from "next-connect";
 import middleware from "../../middleware/database";
+import { ObjectId } from "mongodb";
 
 const handler = nextConnect();
 
@@ -16,10 +17,42 @@ handler.post(async (req, res) => {
   const listing = data.listing;
   delete data.listing;
   data.stage = "Applied";
+  data.notes = "";
+  data.rating = 0;
   let doc = await req.db.collection("applicants").insertOne(data);
   let doc2 = await req.db
     .collection("jobs")
     .updateOne({ title: listing }, { $push: { applicants: doc.insertedId } });
+  res.json({ message: "ok" });
+});
+
+handler.put(async (req, res) => {
+  let data = req.body;
+  data = JSON.parse(data);
+
+  let doc = await req.db
+    .collection("applicants")
+    .updateOne(
+      { _id: ObjectId(data.id) },
+      { $set: { stage: data.stage, notes: data.notes, rating: data.rating } },
+      function (err, res) {
+        if (err) throw err;
+      }
+    );
+  res.json({ message: "ok" });
+});
+
+handler.delete(async (req, res) => {
+  let id = req.body;
+  id = JSON.parse(id);
+  let doc = await req.db
+    .collection("applicants")
+    .deleteOne({ _id: ObjectId(id) }, function (err, res) {
+      if (err) throw err;
+    });
+  let doc2 = await req.db
+    .collection("jobs")
+    .update({}, { $pull: { applicants: ObjectId(id) } }, { multi: true });
   res.json({ message: "ok" });
 });
 

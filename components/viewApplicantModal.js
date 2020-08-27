@@ -8,6 +8,23 @@ export default function ViewApplicantModal(props) {
     form.resetFields();
   }, [props.data]);
 
+  async function handleSubmit(e) {
+    e.id = props.data._id;
+    const res = await fetch("/api/applicants", {
+      method: "put",
+      body: JSON.stringify(e),
+    });
+    props.close();
+  }
+
+  async function deleteApplicant() {
+    const res = await fetch("/api/applicants", {
+      method: "delete",
+      body: JSON.stringify(props.data._id),
+    });
+    props.close();
+  }
+
   return (
     <Modal
       visible={props.visible}
@@ -19,7 +36,12 @@ export default function ViewApplicantModal(props) {
       centered
       forceRender
     >
-      <Form form={form} name="edit-applicant" hideRequiredMark>
+      <Form
+        form={form}
+        name="edit-applicant"
+        onFinish={handleSubmit}
+        hideRequiredMark
+      >
         <Descriptions bordered column={1}>
           <Descriptions.Item label="Stage">
             <Form.Item
@@ -63,7 +85,11 @@ export default function ViewApplicantModal(props) {
             {props.data.introduction ? props.data.introduction : "-"}
           </Descriptions.Item>
           <Descriptions.Item label="Notes">
-            <Form.Item style={{ margin: 0 }} name="notes">
+            <Form.Item
+              style={{ margin: 0 }}
+              name="notes"
+              initialValue={props.data.notes}
+            >
               <Input.TextArea
                 bordered={false}
                 style={{ padding: 0, margin: 0 }}
@@ -71,15 +97,31 @@ export default function ViewApplicantModal(props) {
             </Form.Item>
           </Descriptions.Item>
           <Descriptions.Item label="Rating">
-            <Form.Item style={{ margin: 0 }} name="rating">
+            <Form.Item
+              style={{ margin: 0 }}
+              name="rating"
+              initialValue={props.data.rating}
+            >
               {/* add default value */}
               <Rate />
             </Form.Item>
           </Descriptions.Item>
         </Descriptions>
         <div style={{ textAlign: "end", marginTop: "1rem" }}>
-          <Button type="primary" htmlType="submit">
+          <Button
+            type="primary"
+            htmlType="submit"
+            style={{ marginRight: "8px" }}
+          >
             Save
+          </Button>
+          <Button
+            type="default"
+            htmlType="button"
+            onClick={deleteApplicant}
+            danger
+          >
+            Delete
           </Button>
         </div>
       </Form>
