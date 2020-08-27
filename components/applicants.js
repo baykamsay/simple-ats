@@ -40,7 +40,7 @@ function Applicants(props) {
   return (
     <Layout
       className={styles.siteLayoutBackground}
-      style={{ padding: "24px 0", minHeight: "81vh" }}
+      style={{ paddingTop: 84, minHeight: "100vh" }}
     >
       <InsertApplicantModal
         visible={insertApplicantModalVisible}

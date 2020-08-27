@@ -10,7 +10,7 @@ import homeStyle from "../styles/Home.module.css";
 import Applicants from "../components/applicants";
 import JobListings from "../components/jobListings";
 
-const { Header, Content, Footer } = Layout;
+const { Header, Content } = Layout;
 
 function ATS({ initialId }) {
   const { data, revalidate } = useSWR("/api/me", async function (args) {
@@ -78,15 +78,12 @@ function ATS({ initialId }) {
         </Header>
         <Content
           style={{
-            padding: "50px 50px 0 50px",
-            marginTop: 64,
             minHeight: "100%",
           }}
         >
           {componentId === "1" && <Applicants data={initialId} />}
           {componentId === "2" && <JobListings />}
         </Content>
-        <Footer style={{ textAlign: "center" }}>Baykam Say ©2020</Footer>
       </Layout>
     </div>
   );
