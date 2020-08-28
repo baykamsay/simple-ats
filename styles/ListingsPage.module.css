@@ -32,9 +32,9 @@ p {
   color: #141414;
 }
 
-a {
+a.link {
   font-family: "Roboto", sans-serif;
-  font-size: 1rem;
+  font-size: 1.2rem;
 }
 
 .primary {

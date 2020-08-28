@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Modal, Descriptions, Form, Input, Button, Rate } from "antd";
+import { Modal, Descriptions, Form, Input, Button, Rate, Select } from "antd";
 
 export default function ViewApplicantModal(props) {
   const [form] = Form.useForm();
@@ -50,7 +50,13 @@ export default function ViewApplicantModal(props) {
               initialValue={props.data.stage}
               required
             >
-              <Input bordered={false} style={{ padding: 0, margin: 0 }} />
+              <Select bordered={false}>
+                {props.pipeline.map((stage, i) => (
+                  <Select.Option key={i} value={stage}>
+                    {stage}
+                  </Select.Option>
+                ))}
+              </Select>
             </Form.Item>
           </Descriptions.Item>
           <Descriptions.Item label="Email">

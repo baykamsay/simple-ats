@@ -12,7 +12,7 @@ import JobListings from "../components/jobListings";
 
 const { Header, Content } = Layout;
 
-function ATS({ initialId }) {
+function ATS({ staticProps }) {
   const { data, revalidate } = useSWR("/api/me", async function (args) {
     const res = await fetch(args);
     return res.json();
@@ -81,7 +81,7 @@ function ATS({ initialId }) {
             minHeight: "100%",
           }}
         >
-          {componentId === "1" && <Applicants data={initialId} />}
+          {componentId === "1" && <Applicants data={staticProps} />}
           {componentId === "2" && <JobListings />}
         </Content>
       </Layout>
@@ -92,9 +92,14 @@ function ATS({ initialId }) {
 export async function getStaticProps() {
   const res = await fetch("http://localhost:3000/api/jobs");
   const jobs = await res.json();
+  const res2 = await fetch("http://localhost:3000/api/pipeline");
+  const pipeline = await res2.json();
   return {
     props: {
-      initialId: jobs[0]._id,
+      staticProps: {
+        initialId: jobs[0]._id,
+        pipeline: pipeline,
+      },
     },
   };
 }

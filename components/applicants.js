@@ -25,7 +25,7 @@ function Applicants(props) {
     insertApplicantModalVisible,
     setInsertApplicantModalVisible,
   ] = useState(false);
-  const [selectedListing, setSelectedListing] = useState(props.data);
+  const [selectedListing, setSelectedListing] = useState(props.data.initialId);
   const { data, error } = useSWR("/api/jobs", async function (args) {
     const res = await fetch(args);
     return res.json();
@@ -90,7 +90,10 @@ function Applicants(props) {
             padding: "0 24px",
           }}
         >
-          <ApplicantView data={selectedListing} />
+          <ApplicantView
+            data={selectedListing}
+            pipeline={props.data.pipeline}
+          />
         </Content>
       </Layout>
     </Layout>

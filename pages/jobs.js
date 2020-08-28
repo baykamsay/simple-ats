@@ -21,7 +21,15 @@ function Jobs({ jobs }) {
               className={listingStyles.list}
               dataSource={jobs}
               renderItem={(item) => (
-                <List.Item actions={[<a key="apply">Apply</a>]}>
+                <List.Item
+                  actions={[
+                    <Link key={item._id} href={`/jobs/${item._id}`}>
+                      <a className={listingStyles.link} key="apply">
+                        Apply
+                      </a>
+                    </Link>,
+                  ]}
+                >
                   <List.Item.Meta title={<h5>{item.title}</h5>} />
                   {item.location}
                 </List.Item>

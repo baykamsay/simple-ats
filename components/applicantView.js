@@ -54,6 +54,7 @@ export default function ApplicantView(props) {
           mutate(`/api/jobs/${props.data}`);
           setModalVisible(false);
         }}
+        pipeline={props.pipeline}
       />
       <List
         split={false}
