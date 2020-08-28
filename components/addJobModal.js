@@ -39,6 +39,13 @@ export default function AddJobModal(props) {
           <Input />
         </Form.Item>
         <Form.Item
+          name="location"
+          label="Location"
+          rules={[{ required: true }]}
+        >
+          <Input />
+        </Form.Item>
+        <Form.Item
           name="description"
           label="Description"
           rules={[{ required: true }]}

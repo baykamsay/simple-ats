@@ -23,7 +23,7 @@ function Jobs({ jobs }) {
               renderItem={(item) => (
                 <List.Item actions={[<a key="apply">Apply</a>]}>
                   <List.Item.Meta title={<h5>{item.title}</h5>} />
-                  {item.description}
+                  {item.location}
                 </List.Item>
               )}
             />

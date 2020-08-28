@@ -57,6 +57,14 @@ export default function EditJobModal(props) {
           <Input />
         </Form.Item>
         <Form.Item
+          name="location"
+          label="Location"
+          rules={[{ required: true }]}
+          initialValue={props.data.location}
+        >
+          <Input />
+        </Form.Item>
+        <Form.Item
           name="description"
           label="Description"
           rules={[{ required: true }]}

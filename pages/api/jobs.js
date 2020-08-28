@@ -16,6 +16,7 @@ handler.post(async (req, res) => {
   data = JSON.parse(data);
   await req.db.collection("jobs").insertOne({
     title: data.title,
+    location: data.location,
     description: data.description,
     applicants: [],
   });
@@ -30,7 +31,13 @@ handler.put(async (req, res) => {
     .collection("jobs")
     .updateOne(
       { _id: ObjectId(data.id) },
-      { $set: { title: data.title, description: data.description } },
+      {
+        $set: {
+          title: data.title,
+          location: data.location,
+          description: data.description,
+        },
+      },
       function (err) {
         if (err) throw err;
       }
