@@ -18,7 +18,7 @@ export default function Home() {
           style={{
             minHeight: "60vh",
           }}
-          className={listingStyles.secondaryB}
+          className={listingStyles.secondary_b}
           justify="center"
           align="bottom"
         >
@@ -31,7 +31,7 @@ export default function Home() {
             <h5 className={listingStyles.primary}>
               Join Us &ndash; add small and meaningful slogan here
             </h5>
-            <Link href="/ats">
+            <Link href="/jobs">
               <a className={listingStyles.button}>View Open Jobs</a>
             </Link>
           </Col>
@@ -48,7 +48,7 @@ export default function Home() {
             <p
               className={[
                 listingStyles.primary,
-                listingStyles.marginBottom,
+                listingStyles.margin_bottom,
               ].join(" ")}
             >
               Nulla pellentesque lorem turpis, in rhoncus urna euismod sit amet.
@@ -120,8 +120,8 @@ export default function Home() {
           </Col>
         </Row>
         <Row style={{ padding: "4rem 0" }} justify="center" align="bottom">
-          <Link href="/ats">
-            <a className={listingStyles.buttonS}>Join Us</a>
+          <Link href="/jobs">
+            <a className={listingStyles.button_s}>Join Us</a>
           </Link>
         </Row>
       </main>

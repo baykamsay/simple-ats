@@ -32,6 +32,11 @@ p {
   color: #141414;
 }
 
+a {
+  font-family: "Roboto", sans-serif;
+  font-size: 1rem;
+}
+
 .primary {
   color: #ffffff;
 }
@@ -40,23 +45,15 @@ p {
   color: #141414;
 }
 
-.primaryB {
+.primary_b {
   background-color: #ffffff;
 }
 
-.secondaryB {
+.secondary_b {
   background-color: #141414;
 }
 
-.primaryBorder {
-  border-color: #ffffff;
-}
-
-.secondaryBorder {
-  border-color: #141414;
-}
-
-.marginBottom {
+.margin_bottom {
   margin-bottom: 0;
 }
 
@@ -91,7 +88,7 @@ a.button:hover {
   }
 }
 
-a.buttonS {
+a.button_s {
   display: inline-block;
   padding: 0.35em 1.2em;
   border: 0.1em solid #141414;
@@ -106,13 +103,19 @@ a.buttonS {
   transition: all 0.2s;
   scale: 2;
 }
-a.buttonS:hover {
+a.button_s:hover {
   color: #ffffff;
   background-color: #141414;
 }
 @media all and (max-width: 30em) {
-  a.buttonS {
+  a.button_s {
     display: block;
     margin: 0.4em auto;
   }
+}
+
+.list {
+  font-family: "Roboto", sans-serif;
+  color: #141414;
+  font-size: 1rem;
 }
