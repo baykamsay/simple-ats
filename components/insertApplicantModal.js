@@ -68,7 +68,7 @@ export default function InsertApplicantModal(props) {
         >
           <Select placeholder="Select a option" showSearch>
             {data.map((job, i) => (
-              <Select.Option key={i} value={job.title}>
+              <Select.Option key={i} value={job._id}>
                 {job.title}
               </Select.Option>
             ))}

@@ -22,7 +22,10 @@ handler.post(async (req, res) => {
   let doc = await req.db.collection("applicants").insertOne(data);
   await req.db
     .collection("jobs")
-    .updateOne({ title: listing }, { $push: { applicants: doc.insertedId } });
+    .updateOne(
+      { _id: ObjectId(listing) },
+      { $push: { applicants: doc.insertedId } }
+    );
   res.json({ message: "ok" });
 });
 
@@ -52,7 +55,7 @@ handler.delete(async (req, res) => {
     });
   await req.db
     .collection("jobs")
-    .update({}, { $pull: { applicants: ObjectId(id) } }, { multi: true });
+    .updateMany({}, { $pull: { applicants: ObjectId(id) } });
   res.json({ message: "ok" });
 });
 

@@ -14,7 +14,7 @@ function Jobs({ jobs }) {
 
       <main className={styles.main}>
         <Row style={{ paddingTop: "4rem" }} justify="center" align="top">
-          <Col xs={{ span: 20 }} lg={{ span: 12 }}>
+          <Col xs={{ span: 20 }} lg={{ span: 10 }}>
             <h1>Job Openings</h1>
             <Divider />
             <List
