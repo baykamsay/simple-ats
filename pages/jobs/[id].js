@@ -1,4 +1,5 @@
 import Head from "next/head";
+import Link from "next/link";
 import styles from "../../styles/Home.module.css";
 import listingStyles from "../../styles/ListingsPage.module.css";
 import {
@@ -61,7 +62,15 @@ function Jobs() {
     message.success("Your application has been submitted");
   }
 
-  if (error) return <div>failed to load</div>;
+  if (error)
+    return (
+      <div>
+        This page does not exist,{" "}
+        <Link href="/jobs">
+          <a>click here to go back.</a>
+        </Link>
+      </div>
+    );
   if (!data)
     return (
       <div className={styles.container}>
