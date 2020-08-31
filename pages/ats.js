@@ -49,7 +49,11 @@ function ATS({ staticProps }) {
         >
           <Row>
             <Col flex="auto">
-              <div className={styles.logo} />
+              <img
+                src="/logo_transparent.png"
+                alt="Logo"
+                className={styles.logo}
+              />
               <Menu
                 theme="dark"
                 mode="horizontal"
@@ -61,7 +65,6 @@ function ATS({ staticProps }) {
                 <Menu.Item key="1">Applicants</Menu.Item>
                 <Menu.Item key="2">Job Listings</Menu.Item>
                 <Menu.Item key="3">Settings</Menu.Item>
-                <Menu.Item key="4">About</Menu.Item>
               </Menu>
             </Col>
             <Col flex="80px">
