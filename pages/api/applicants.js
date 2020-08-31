@@ -19,6 +19,7 @@ handler.post(async (req, res) => {
   data.stage = "Applied";
   data.notes = "";
   data.rating = 0;
+  data.cv = ObjectId(data.cv[0].response.message);
   let doc = await req.db.collection("applicants").insertOne(data);
   await req.db
     .collection("jobs")

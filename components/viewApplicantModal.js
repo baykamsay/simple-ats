@@ -1,5 +1,7 @@
 import React, { useEffect } from "react";
 import { Modal, Descriptions, Form, Input, Button, Rate, Select } from "antd";
+import fetch from "isomorphic-unfetch";
+import { saveAs } from "file-saver";
 
 export default function ViewApplicantModal(props) {
   const [form] = Form.useForm();
@@ -23,6 +25,15 @@ export default function ViewApplicantModal(props) {
       body: JSON.stringify(props.data._id),
     });
     props.close();
+  }
+
+  async function downloadCV() {
+    const res = await fetch(`/api/cv/${props.data.cv}`);
+    let resJson = await res.json();
+    const arr = new Uint8Array(resJson.file.data);
+
+    let blob = new Blob([arr], { type: "application/pdf" });
+    saveAs(blob, "test.pdf");
   }
 
   return (
@@ -61,6 +72,15 @@ export default function ViewApplicantModal(props) {
           </Descriptions.Item>
           <Descriptions.Item label="Email">
             <a href={`mailto:${props.data.email}`}>{props.data.email}</a>
+          </Descriptions.Item>
+          <Descriptions.Item label="CV">
+            <Button
+              type="link"
+              onClick={downloadCV}
+              style={{ margin: 0, padding: 0 }}
+            >
+              Download
+            </Button>
           </Descriptions.Item>
           <Descriptions.Item label="Phone">
             {props.data.phone ? (
@@ -108,7 +128,6 @@ export default function ViewApplicantModal(props) {
               name="rating"
               initialValue={props.data.rating}
             >
-              {/* add default value */}
               <Rate />
             </Form.Item>
           </Descriptions.Item>

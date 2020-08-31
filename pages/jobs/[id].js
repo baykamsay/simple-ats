@@ -1,7 +1,17 @@
 import Head from "next/head";
 import styles from "../../styles/Home.module.css";
 import listingStyles from "../../styles/ListingsPage.module.css";
-import { Row, Col, Spin, Form, Input, Button, Divider, message } from "antd";
+import {
+  Row,
+  Col,
+  Spin,
+  Form,
+  Input,
+  Button,
+  Divider,
+  message,
+  Upload,
+} from "antd";
 import { useRouter } from "next/router";
 import useSWR from "swr";
 import fetch from "isomorphic-unfetch";
@@ -19,6 +29,13 @@ const validateMessages = {
     number: "Not a valid number!",
     url: "Not a valid url!",
   },
+};
+
+const normFile = (e) => {
+  if (Array.isArray(e)) {
+    return e;
+  }
+  return e && e.fileList;
 };
 
 function Jobs() {
@@ -43,6 +60,7 @@ function Jobs() {
     form.resetFields();
     message.success("Your application has been submitted");
   }
+
   if (error) return <div>failed to load</div>;
   if (!data)
     return (
@@ -83,6 +101,17 @@ function Jobs() {
                 rules={[{ required: true }, { type: "email" }]}
               >
                 <Input />
+              </Form.Item>
+              <Form.Item
+                name="cv"
+                label="CV"
+                valuePropName="fileList"
+                getValueFromEvent={normFile}
+                rules={[{ required: true }]}
+              >
+                <Upload name="file" action="/api/cv" accept=".pdf">
+                  <Button>Upload CV</Button>
+                </Upload>
               </Form.Item>
               <Form.Item name="phone" label="Phone Number">
                 <Input />

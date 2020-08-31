@@ -1,5 +1,5 @@
 import React from "react";
-import { Modal, Button, Form, Input, Spin, Select } from "antd";
+import { Modal, Button, Form, Input, Spin, Select, Upload } from "antd";
 import useSWR from "swr";
 import homeStyle from "../styles/Home.module.css";
 
@@ -15,6 +15,13 @@ const validateMessages = {
     number: "Not a valid number!",
     url: "Not a valid url!",
   },
+};
+
+const normFile = (e) => {
+  if (Array.isArray(e)) {
+    return e;
+  }
+  return e && e.fileList;
 };
 
 export default function InsertApplicantModal(props) {
@@ -83,6 +90,17 @@ export default function InsertApplicantModal(props) {
           rules={[{ required: true }, { type: "email" }]}
         >
           <Input />
+        </Form.Item>
+        <Form.Item
+          name="cv"
+          label="CV"
+          valuePropName="fileList"
+          getValueFromEvent={normFile}
+          rules={[{ required: true }]}
+        >
+          <Upload name="file" action="/api/cv" accept=".pdf">
+            <Button>Upload CV</Button>
+          </Upload>
         </Form.Item>
         <Form.Item name="phone" label="Phone Number">
           <Input />
