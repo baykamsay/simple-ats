@@ -33,7 +33,7 @@ export default function ViewApplicantModal(props) {
     const arr = new Uint8Array(resJson.file.data);
 
     let blob = new Blob([arr], { type: "application/pdf" });
-    saveAs(blob, "test.pdf");
+    saveAs(blob, "cv.pdf");
   }
 
   return (
