@@ -1,6 +1,6 @@
 # Simple ATS
 
-Simple ATS is a pretty basic applicant tracking system with a job listings page.
+Simple ATS is an applicant tracking system with a job listings page.
 
 ## Features
 Applicant side: a landing page, job listings page, and pages for each job listing that are generated from markdown.  
@@ -20,7 +20,7 @@ The signup route is also unprotected, you should secure this route in production
 
 ## Demo
 The demo is available at https://ats.demos.baykam.me/.  
-To access the applicant tracking system visit https://ats.demos.baykam.me/ats/.
+To access the applicant tracking system visit https://ats.demos.baykam.me/ats.
 
 ## Contributing
 Pull requests are welcome.
