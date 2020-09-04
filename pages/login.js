@@ -2,8 +2,9 @@ import React, { useEffect } from "react";
 import Router from "next/router";
 import cookie from "js-cookie";
 import Head from "next/head";
-import { Layout, Form, Input, Button, message } from "antd";
+import { Layout, Form, Input, Button, message, Typography } from "antd";
 
+const { Text } = Typography;
 const layout = {
   labelCol: { span: 8 },
   wrapperCol: { span: 16 },
@@ -102,6 +103,9 @@ const Login = () => {
                 Submit
               </Button>
             </Form.Item>
+            <Text>
+              Demo Username: guest <br /> Demo Password: guest
+            </Text>
           </Form>
         </Content>
         <Footer style={{ textAlign: "center" }}>Baykam Say ©2020</Footer>
