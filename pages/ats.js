@@ -92,19 +92,32 @@ function ATS({ staticProps }) {
   );
 }
 
-export async function getStaticProps() {
-  const res = await fetch("http://localhost:3000/api/jobs");
-  const jobs = await res.json();
-  const res2 = await fetch("http://localhost:3000/api/pipeline");
-  const pipeline = await res2.json();
-  return {
-    props: {
-      staticProps: {
-        initialId: jobs[0]._id,
-        pipeline: pipeline,
-      },
+export async function getServerSideProps() {
+  return fetch("http://localhost:3000/api/jobs").then(
+    async (res) => {
+      const jobs = await res.json();
+      const res2 = await fetch("http://localhost:3000/api/pipeline");
+      const pipeline = await res2.json();
+      return {
+        props: {
+          staticProps: {
+            initialId: jobs[0]._id,
+            pipeline: pipeline,
+          },
+        },
+      };
     },
-  };
+    () => {
+      return {
+        props: {
+          staticProps: {
+            initialId: 0,
+            pipeline: [],
+          },
+        },
+      };
+    }
+  );
 }
 
 export default ATS;

@@ -52,15 +52,24 @@ function Jobs({ jobs }) {
   );
 }
 
-export async function getStaticProps() {
-  const res = await fetch("http://localhost:3000/api/jobs");
-  const jobs = await res.json();
-
-  return {
-    props: {
-      jobs,
+export async function getServerSideProps() {
+  return fetch("http://localhost:3000/api/jobs").then(
+    async (res) => {
+      const jobs = await res.json();
+      return {
+        props: {
+          jobs,
+        },
+      };
     },
-  };
+    () => {
+      return {
+        props: {
+          jobs: [{}],
+        },
+      };
+    }
+  );
 }
 
 export default Jobs;
