@@ -53,7 +53,7 @@ function Jobs({ jobs }) {
 }
 
 export async function getServerSideProps() {
-  return fetch("http://localhost:3000/api/jobs").then(
+  return fetch(`${process.env.URL}api/jobs`).then(
     async (res) => {
       const jobs = await res.json();
       return {

@@ -93,10 +93,10 @@ function ATS({ staticProps }) {
 }
 
 export async function getServerSideProps() {
-  return fetch("http://localhost:3000/api/jobs").then(
+  return fetch(`${process.env.URL}api/jobs`).then(
     async (res) => {
       const jobs = await res.json();
-      const res2 = await fetch("http://localhost:3000/api/pipeline");
+      const res2 = await fetch(`${process.env.URL}api/pipeline`);
       const pipeline = await res2.json();
       return {
         props: {
